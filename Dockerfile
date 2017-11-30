@@ -9,8 +9,12 @@ RUN apk update
 RUN apk add git
 RUN git clone https://github.com/Netflix/conductor /src
 
+
+FROM node:alpine 
+
 # Install the required packages for the node build
 # to run on alpine
+RUN apk update
 RUN apk add \
   autoconf \
   automake \
@@ -30,8 +34,8 @@ RUN apk add \
 RUN mkdir -p /app/ui
 
 # Copy the ui files onto the image
-COPY /src/docker/ui/bin /app
-COPY /src/ui /app/ui
+COPY --from=builder /src/docker/ui/bin/startup.sh /app
+COPY --from=builder  /src/ui /app/ui
 
 # Copy the files for the server into the app folders
 RUN chmod +x /app/startup.sh
@@ -40,11 +44,6 @@ RUN chmod +x /app/startup.sh
 RUN cd /app/ui \
   && npm install \
   && npm run build --server
-
-
-FROM node:alpine
-COPY --from=builder /app /app
-
 
 EXPOSE 5000
 
