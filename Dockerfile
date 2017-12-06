@@ -7,7 +7,7 @@ MAINTAINER Netflix OSS <conductor@netflix.com>
 
 RUN apk update
 RUN apk add git
-RUN git clone --branch v1.8.1 https://github.com/Netflix/conductor /src
+RUN git clone  https://github.com/Netflix/conductor /src
 
 
 FROM node:alpine 
@@ -35,7 +35,7 @@ RUN mkdir -p /app/ui
 
 # Copy the ui files onto the image
 COPY --from=builder /src/docker/ui/bin/startup.sh /app
-COPY --from=builder  /src/ui /app/ui
+COPY --from=builder /src/ui /app/ui
 
 # Copy the files for the server into the app folders
 RUN chmod +x /app/startup.sh
