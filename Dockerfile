@@ -22,7 +22,7 @@ RUN apk add git \
   libjpeg-turbo \
   libjpeg-turbo-dev 
 
-RUN git clone  https://github.com/Netflix/conductor /src
+RUN git clone --branch v1.8.1  https://github.com/Netflix/conductor /src
 
 # Get and install conductor UI
 RUN cd /src/ui \
