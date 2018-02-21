@@ -1,11 +1,11 @@
-#build conductor UI for pdok
+# build conductor UI for pdok
 #
 # conductor:ui - Netflix conductor UI
 #
 FROM node:6-alpine as builder
 MAINTAINER Netflix OSS <conductor@netflix.com>
 
-#install git and packages needed for the node build on alpine
+# install git and packages needed for the node build on alpine
 RUN apk update
 RUN apk add git \
   autoconf \
@@ -24,6 +24,7 @@ RUN apk add git \
 
 ENV PDOK_CONDUCTOR_VERSION 1.8.1
 LABEL version="$PDOK_CONDUCTOR_VERSION"
+# get the source from git of an specific version
 RUN git clone --branch v$PDOK_CONDUCTOR_VERSION https://github.com/Netflix/conductor /src
 
 # Get and install conductor UI
@@ -31,7 +32,7 @@ RUN cd /src/ui \
   && npm install \
   && npm run build --server
 
-#final image
+# final image
 FROM node:6-alpine
 
 # Make app folders
