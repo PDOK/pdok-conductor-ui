@@ -20,9 +20,11 @@ RUN apk add git \
   libpng \
   libpng-dev \
   libjpeg-turbo \
-  libjpeg-turbo-dev 
+  libjpeg-turbo-dev
 
-RUN git clone --branch v1.8.1  https://github.com/Netflix/conductor /src
+ENV PDOK_CONDUCTOR_VERSION 1.8.1
+LABEL version="$PDOK_CONDUCTOR_VERSION"
+RUN git clone --branch v$PDOK_CONDUCTOR_VERSION https://github.com/Netflix/conductor /src
 
 # Get and install conductor UI
 RUN cd /src/ui \
@@ -30,7 +32,7 @@ RUN cd /src/ui \
   && npm run build --server
 
 #final image
-FROM node:6-alpine 
+FROM node:6-alpine
 
 # Make app folders
 RUN mkdir -p /app/ui
