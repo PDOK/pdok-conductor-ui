@@ -22,7 +22,7 @@ RUN apk add git \
   libjpeg-turbo \
   libjpeg-turbo-dev
 
-ENV PDOK_CONDUCTOR_VERSION 1.8.2-rc8
+ENV PDOK_CONDUCTOR_VERSION 1.8.2-rc4
 LABEL version="$PDOK_CONDUCTOR_VERSION"
 # get the source from git of an specific version
 RUN git clone --branch v$PDOK_CONDUCTOR_VERSION https://github.com/Netflix/conductor /src
